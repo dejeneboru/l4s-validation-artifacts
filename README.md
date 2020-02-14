@@ -1,10 +1,11 @@
 # l4s-validation-artifacts
-A repository to reproduce the results in a paper "Validating the Sharing Behavior and Latency Characteristics of the L4S Architecture"
+A repository to reproduce the results in the paper "Validating the Sharing Behavior and Latency Characteristics of the L4S Architecture"
 
 ## Instructions ##
-For our experiments, Ubuntu 18.04 is installed on all nodes, clients, servers, and the AQM node (see the setup figure).
 
-## Install a Kernel tree which contains the DualPI2 Qdisc and TCP Prague
+Ubuntu 18.04 is installed on all nodes (see l4s-valid-setup.pdf).
+
+## Install a Kernel tree which contains the DualPI2 Qdisc and TCP Prague congestion control
    (Only on Server A, Client A and the AQM node)
 
 	1. Install gcc and other build tools 
@@ -21,28 +22,33 @@ For our experiments, Ubuntu 18.04 is installed on all nodes, clients, servers, a
 	   reboot
 ## Install OpenSSH Server on all nodes 
 	   sudo apt install openssh-server
-
 ## All sudo access on the Clients and Servers from the AQM node
 	   1. ssh to the clients and servers
 	   2. Run 'sudo visudo' and add 'YOUR_USERNAME ALL=(ALL) NOPASSWD: ALL' and save the changes.
-
 ## Clone this repository to the AQM node
 	   1.  git clone https://github.com/dejeneboru/l4s-validation-artifacts.git > L4SValid
 	   2.  cd L4SValid
 	   3.  Copy 'trace_cwnd.sh' script to Server A and Server B
-
 	       scp trace_cwnd.sh ${IP_SERVER_A}:/home/${YOUR_USERNAME}/
 	       scp trace_cwnd.sh ${IP_SERVER_B}:/home/${YOUR_USERNAME}/
-
 	   4. Don't forget to replace the 'SERVER_IP' field with server A's and server B's IP
 	   5. Modifiy the script 'run_experiment.sh' by replacing the IPs of the clients, servers, and the AQM node with the IPs for your setup
 	   6. Make all scripts (\*.sh) executable e.g., chmod +x run_experiment.sh
 	   7. Set IP forwarding on AQM node
-
-	       sudo sysctl -qw net.ipv4.ip_forward=1
-	       
-## Run the experiments by starting the run script from the AQM node
+	      sudo sysctl -qw net.ipv4.ip_forward=1 
+## Run the experiments by starting the run script from the AQM node. 
+   
    ./run_experiment.sh
+
+   This experiment will generate the data to reproduce figures 4, 5, 9, and 10 in the paper. 
+
+## Reproducing the result with single queue AQM (Figure 3)
+   1. Clone DualPI2 qdisc which supports both single queue and dual queue AQM and install on the AQM node. You might need to also setup the correct iproute package!
+   2. Start the experiment 
+      ./run_single_queue.sh 
+
+   
+
 
 
 

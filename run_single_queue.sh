@@ -17,7 +17,7 @@ for enable_fq in 0 1
 do 
   # scalable congestion controls
 
-  for l4s_cc in 'dctcp' 'prague'
+  for l4s_cc in 'dctcp'
   do  
 
     # Bottleneck bandwidths(bw) 
@@ -39,7 +39,7 @@ do
           ssh ${IP_SERVER_B} 'bash -s' < run_on_server.sh 0 cubic 0 ${IP_CLIENT_B} & 
         fi
 
-        ./config_aqm.sh ${bw} ${AQM_IFACE} ${l4s_cc}
+        ./configSingleQueueAQM.sh ${bw} ${AQM_IFACE} ${l4s_cc}
         ./netemdelay.sh ${ONE_WAY_DELAY} ${NETEM_IFACE} 
 
         sleep 1  
@@ -74,8 +74,8 @@ do
 
     ttoday=$(date +"%Y-%m-%d")
 
-    mkdir  -p 'Test-${l4s-cc}-vs-cubic-fq-${enable_fq}-${ttoday}'
-    mv 'bw-'* 'Test-${l4s-cc}-vs-cubic-fq-${enable_fq}-${ttoday}'
+    mkdir  -p 'TestSingleQueue-${l4s-cc}-vs-cubic-fq-${enable_fq}-${ttoday}'
+    mv 'bw-'* 'TestSingleQueue-${l4s-cc}-vs-cubic-fq-${enable_fq}-${ttoday}'
 
   done
 

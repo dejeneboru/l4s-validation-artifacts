@@ -16,19 +16,19 @@ sudo tc class add dev $IFACE parent 1: classid 1:1 htb rate ${RATE}Mbit ceil ${R
 
 if [ $L4S_CC = 'prague' ]; then
 	if [ $RATE -eq 4 ]; then
-		sudo tc qdisc add dev $IFACE parent 1:1 dualpi2 coupling_factor 2 step_thresh 6ms 
+		sudo tc qdisc add dev $IFACE parent 1:1 dualpi2 coupling_factor 2 step_thresh 6ms limit 40000 
 	elif [ $RATE -eq 12 ]; then
-		sudo tc qdisc add dev $IFACE parent 1:1 dualpi2 coupling_factor 2 step_thresh 3ms 
+		sudo tc qdisc add dev $IFACE parent 1:1 dualpi2 coupling_factor 2 step_thresh 3ms limit 40000
 	else
-		sudo tc qdisc add dev $IFACE parent 1:1 dualpi2 coupling_factor 2 step_thresh 1ms 
+		sudo tc qdisc add dev $IFACE parent 1:1 dualpi2 coupling_factor 2 step_thresh 1ms limit 40000
 	fi
 elif [ $L4S_CC ='dctcp' ]; then
 	if [ $RATE -eq 4 ]; then
-		sudo tc qdisc add dev $IFACE parent 1:1 dualpi2 coupling_factor 2  any_ect step_thresh 6ms 
+		sudo tc qdisc add dev $IFACE parent 1:1 dualpi2 coupling_factor 2  any_ect step_thresh 6ms limit 40000
 	elif [ $RATE -eq 12 ]; then
-		sudo tc qdisc add dev $IFACE parent 1:1 dualpi2 coupling_factor 2  any_ect step_thresh 3ms 
+		sudo tc qdisc add dev $IFACE parent 1:1 dualpi2 coupling_factor 2  any_ect step_thresh 3ms limit 40000
 	else
-		sudo tc qdisc add dev $IFACE parent 1:1 dualpi2 coupling_factor 2  any_ect step_thresh 1ms 
+		sudo tc qdisc add dev $IFACE parent 1:1 dualpi2 coupling_factor 2  any_ect step_thresh 1ms limit 40000
 	fi
 else
 	echo "Undefined scalable CC"

@@ -23,14 +23,13 @@ sudo ethtool -K ${ext_ingress} tso off gso off gro off tx off
 sudo tc qdisc del dev ${ext} root
 sudo tc qdisc del dev ${ext_ingress} root
 
-
 sudo ip link add ${ext_ingress} type ifb
 sudo ifconfig ${ext_ingress} up
-sudo tc qdisc add dev ${ext} root netem delay ${ONE_WAY_DELAY} limit 10000
+sudo tc qdisc add dev ${ext} root netem delay ${ONE_WAY_DELAY} limit 40000
 sudo tc qdisc add dev ${ext} handle ffff: ingress
-sudo tc qdisc add dev ${ext_ingress} root netem delay ${ONE_WAY_DELAY}  limit 10000
+sudo tc qdisc add dev ${ext_ingress} root netem delay ${ONE_WAY_DELAY}  limit 40000
+
 # Forward all ingress traffic to the IFB device
 sudo tc filter add dev ${ext} parent ffff: protocol all u32 match u32 0 0 action mirred egress redirect dev ${ext_ingress}
-
 tc -s qdisc show dev ${IFACE}
 
