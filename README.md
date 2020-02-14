@@ -7,21 +7,21 @@ Ubuntu 18.04 is installed on all nodes (see l4s-valid-setup.pdf).
 
 ## Install a Kernel tree which contains the DualPI2 qdisc and TCP Prague congestion control
    (Only on Server A, Client A and the AQM node)
-	1. Install gcc and other build tools 
-	   sudo apt update upgrade install build-essential libncurses-dev bison flex libssl-dev libelf-dev
-	2. Clone L4S kernel 
-	   git clone https://github.com/L4STeam/linux.git > L4SKernel
-	3. Compile and Install the L4S kernel and don't forget to set the TCP Prague and DualPI2 qdisc modules when you run 'make menuconfig'!
-	   cd L4SKernel 
-	   cp -v /boot/config-$(uname -r) .config
-	   make menuconfig
-	   make -j $(nproc)
-	   sudo make INSTALL_MOD_STRIP=1 modules_install && sudo make install
-	   sudo update-grub
-	   reboot
+		1. Install gcc and other build tools 
+		   sudo apt update upgrade install build-essential libncurses-dev bison flex libssl-dev libelf-dev
+		2. Clone L4S kernel 
+		   git clone https://github.com/L4STeam/linux.git > L4SKernel
+		3. Compile and Install the L4S kernel and don't forget to set the TCP Prague and DualPI2 qdisc modules when you run 'make menuconfig'!
+		   cd L4SKernel 
+		   cp -v /boot/config-$(uname -r) .config
+		   make menuconfig
+		   make -j $(nproc)
+		   sudo make INSTALL_MOD_STRIP=1 modules_install && sudo make install
+		   sudo update-grub
+		   reboot
 ## Install OpenSSH Server on all nodes
 	   sudo apt install openssh-server
-## All sudo access on the Clients and Servers from the AQM node
+## Allow sudo access on the Clients and Servers from the AQM node
 	   1. ssh to the clients and servers
 	   2. Run 'sudo visudo' and add 'YOUR_USERNAME ALL=(ALL) NOPASSWD: ALL' and save the changes.
 ## Clone this repository to the AQM node
