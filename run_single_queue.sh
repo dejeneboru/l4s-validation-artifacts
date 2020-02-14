@@ -2,18 +2,18 @@
 
 # IP addresses of clients/servers and the AQM node
 # EXAMPLE IP address 
-IP_CLIENT_A=10.10.8.20 
-IP_CLIENT_B=10.10.8.30
-IP_SERVER_A=10.10.1.20
-IP_SERVER_B=10.10.1.30
-NETEM_IFACE=10.10.1.11
-AQM_IFACE=10.10.8.11
+IP_CLIENT_A='10.10.8.20' 
+IP_CLIENT_B='10.10.8.30'
+IP_SERVER_A='10.10.1.20'
+IP_SERVER_B='10.10.1.30'
+NETEM_IFACE='10.10.1.11'
+AQM_IFACE='10.10.8.11'
 
 username='my_username'
 
 
 # fq enable (1) or disabled (0)
-for enable_fq in 0 1
+for enable_fq in 0 
 do 
   # scalable congestion controls
 
@@ -32,7 +32,7 @@ do
         ONE_WAY_DELAY=$( echo "scale=2;  $delay/2.0" | bc )
 
         if [ ${l4s_cc} = 'prague' ]; then
-          ssh ${IP_SERVER_A} 'bash -s' < run_on_server.sh 3 prague ${enable_fq} ${IP_CLIENT_A}& 
+          ssh ${IP_SERVER_A} 'bash -s' < run_on_server.sh 3 prague ${enable_fq} ${IP_CLIENT_A} & 
           ssh ${IP_SERVER_B} 'bash -s' < run_on_server.sh 0 cubic 0 ${IP_CLIENT_B} &
         elif [ ${l4s_cc} = 'dctcp' ]; then
           ssh ${IP_SERVER_A} 'bash -s' < run_on_server.sh 1 dctcp ${enable_fq} ${IP_CLIENT_A} &
