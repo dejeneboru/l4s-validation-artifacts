@@ -3,7 +3,7 @@ A repository to reproduce the results in the paper "Validating the Sharing Behav
 
 ## Instructions ##
 
-  Setup Ubuntu 18.04 is on all nodes (see l4s-valid-setup.pdf).
+  Setup Ubuntu 18.04 on all nodes (see l4s-valid-setup.pdf).
 
 ## Install a kernel tree which contains the DualPI2 qdisc and TCP Prague congestion control
    (Only on Server A, Client A and the AQM node)
@@ -36,15 +36,15 @@ A repository to reproduce the results in the paper "Validating the Sharing Behav
 	   6. Make all scripts (\*.sh) executable e.g., chmod +x run_experiment.sh
 	   7. Set IP forwarding on AQM node
 	      sudo sysctl -qw net.ipv4.ip_forward=1 
-## Run the experiment by starting the run script from the AQM node. This will generate the data to reproduce figures 4, 5, 9, and 10 in the paper.
-	   ./run_experiment.sh
-	   
-##  Reproducing figure 6
+## Run the experiment by starting the run script from the AQM node. 
+		This will generate the data to reproduce figures 4, 5, 9, and 10 in the paper.
+		./run_experiment.sh
+##  Reproduce figure 6
 	    To reproduce the experiment with RTT of DCTCP flow different from RTT of Cubic flow, you may emulate the RTTs on the servers' interface (Server A and Server B) instead of the AQM interface. Don't forget to set the servers's interface to your configuration!
 	    1. Modify the script run_diff_rtt_expt.sh with the servers' interface of your configuration
 	    2. Run the test  
 	       ./run_diff_rtt_expt.sh
-## Reproducing the result with single queue AQM (Figure 3)
+## Reproduce the results with single queue AQM (Figure 3)
 	   1. Clone the DualPI2 qdisc which supports both Single Queue and Dual queue AQM and install on the AQM node. 
 	      You might need to also setup the correct iproute package!
 	      git clone https://github.com/olgaalb/sch_dualpi2.git 
