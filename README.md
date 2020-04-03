@@ -12,7 +12,7 @@ A repository to reproduce the results in the paper "Validating the Sharing Behav
 	   sudo apt update upgrade install build-essential libncurses-dev bison flex libssl-dev libelf-dev
 	2. Clone L4S kernel 
 	   git clone https://github.com/L4STeam/linux.git > L4SKernel
-	3. Compile and Install the L4S kernel and don't forget to set the TCP Prague and DualPI2 qdisc modules when you run 'make menuconfig'!
+	3. Compile and Install the L4S kernel and don't forget to select the TCP Prague and DualPI2 qdisc modules when you run 'make menuconfig'!
 	   cd L4SKernel 
 	   cp -v /boot/config-$(uname -r) .config
 	   make menuconfig
